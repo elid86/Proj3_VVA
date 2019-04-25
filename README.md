@@ -16,4 +16,8 @@ Purpose:
 Data Set: 
   Included in the datasets are three csv files: one for the static sensors' readings, another for the static sensors locations' and the final of the mobile sensors. 
   
+  The static sensors are sensors that were given out and placed in a static location to measure the radiation levels over time. They do not move and should be a consistent way to measure the radiation. The data is the timestamp, the sensor number, and the radiation reading.
+  
+  The mobile sensors are sensors that were given to people of the town to put on top of their cars. The mobile sensors then submit the data through the users cell phone and log the location, time, radiation reading, and the user's name.
+  
   
