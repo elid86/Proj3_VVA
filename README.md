@@ -1,6 +1,6 @@
 # Proj3_VVA
 
-Purpose:
+## Purpose:
 
   The purpose this project is to create aids to help visualize the radiation coming from the Always Safe nuclear power plant. The main goals to be accomplished are: 
   
@@ -14,7 +14,7 @@ Purpose:
     
     
     
-Data Set: 
+## Data Set: 
   Included in the datasets are three csv files: one for the static sensors' readings, another for the static sensors locations' and the final of the mobile sensors. 
 
   The static sensors are sensors that were given out and placed in a static location to measure the radiation levels over time. They do not move and should be a consistent way to measure the radiation. The data is the timestamp, the sensor number, and the radiation reading.
@@ -23,7 +23,7 @@ Data Set:
   
   
   
-Plan: 
+## Plan: 
 
 1. Create a map of the location with a dot for each reading of a specific time where each dot is colored based on the radiation levels. It will also include a slider to allow the user to adjust which time they are viewing the readings for as well as an option to view only static readings, only mobile readings and both. This will allow us to visually see the location of the areas radiation levels and easily spot outlier readings to determine if certain sensors should be considered too unscertain to trust.
 
