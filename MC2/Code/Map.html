@@ -176,4 +176,316 @@
         });
 
     </script>
+
+    <P>Select date: </P>
+    <p> 4/  <select id="dateSelection">
+        <option value="6" selected="selected">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select> /20    <select id="hourSelection">
+        <option value="0" selected="selected">00</option>
+        <option value="1">01</option>
+        <option value="2">02</option>
+        <option value="3">03</option>
+        <option value="4">04</option>
+        <option value="5">05</option>
+        <option value="6">06</option>
+        <option value="7">07</option>
+        <option value="8">08</option>
+        <option value="9">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+    </select> : <select id="minuteSelection">
+        <option value="00" selected="selected">00</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+        <option value="32">32</option>
+        <option value="33">33</option>
+        <option value="34">34</option>
+        <option value="35">35</option>
+        <option value="36">36</option>
+        <option value="37">37</option>
+        <option value="38">38</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="43">43</option>
+        <option value="44">44</option>
+        <option value="45">45</option>
+        <option value="46">46</option>
+        <option value="47">47</option>
+        <option value="48">48</option>
+        <option value="49">49</option>
+        <option value="50">50</option>
+        <option value="51">51</option>
+        <option value="52">52</option>
+        <option value="53">53</option>
+        <option value="54">54</option>
+        <option value="55">55</option>
+        <option value="56">56</option>
+        <option value="57">57</option>
+        <option value="58">58</option>
+        <option value="59">59</option>
+    </select> <button onclick="updateData()">Update</button></p>
+    <svg id="barGraph" width="600" height="400" />
+
 </body>
+
+
+<!---------Bar chart ------------->
+<script>
+
+    //--- create graph ----------------------//
+    const margin = 60;
+    const width = 600 - 2 * margin;
+    const height = 400 - 2 * margin;
+
+    const svg = d3.select("#barGraph");
+
+    const chart = svg.append('g')
+        .attr('transform', `translate(${margin}, ${margin})`)
+        .attr('id','#barChart');
+
+    const yScale = d3.scaleLinear()
+        .range([height, 0])
+
+    const xScale = d3.scaleBand()
+        .range([0, width])
+        .padding(0.2)
+
+    //--- set up base data -----//
+    const sensorIDs = [1,4,6,9,11,12,13,14,15];
+
+
+    //--- import data ----------------------//
+    var allFiltData = [];
+
+    console.log("start!");
+
+    d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+
+        //--- set up time selected ----
+        var day = document.getElementById("dateSelection").value;
+        var hour = document.getElementById("hourSelection").value;
+        var minute = document.getElementById("minuteSelection").value;
+
+        var selectedTimeStamp = "4/" + day + "/20 " + hour + ":" + minute;
+        console.log("selectionTimeStamp: " + selectedTimeStamp);
+
+        //-- sort data by sensor id ----
+        for (var i = 0; i < sensorIDs.length; i++) {
+
+            //-- filter for time and sensorid
+            var filteredData = data.filter(function (d) {
+                if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == selectedTimeStamp) {
+                    return d;
+                }
+            })
+            //-- get average
+            var valueAvg = d3.mean(filteredData, function (d) {
+                return d.Value;
+            });
+
+            //-- add to allFiltData
+            var temp = {
+                "Sensorid": sensorIDs[i],
+                "Value": valueAvg
+            }
+
+            allFiltData.push(temp);
+
+        }
+        console.log("finished data")
+        buildInital();
+    });
+
+    //--- build initial axises ----------//
+    function buildInital() {
+        console.log("running initial");
+        //-- add axises -----
+        var maxY = d3.max(allFiltData, function (d) {
+            return d.Value
+        });
+
+        console.log("maxY: " + maxY);
+
+        yScale.domain([0, maxY+5]);
+
+        chart.append('g')
+            .call(d3.axisLeft(yScale));
+
+        xScale.domain(allFiltData.map((s) => s.Sensorid));
+
+        chart.append('g')
+            .attr('transform', `translate(0, ${height})`)
+            .call(d3.axisBottom(xScale));
+
+        //-- show rectangles (values) ---
+        chart.selectAll()
+            .data(allFiltData)
+            .enter()
+            .append('rect')
+            .attr('class', 'bar')
+            .attr('x', (s) => xScale(s.Sensorid))
+            .attr('y', (s) => yScale(s.Value))
+            .attr('height', (s) => height - yScale(s.Value))
+            .attr('width', xScale.bandwidth())
+
+    }
+
+
+    //------ update ---------------//
+
+    function updateData() {
+
+        //--- import data ----------------------//
+        allFiltData = [];
+
+        //--- get data ----------
+        d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+
+            //--- set up time selected ----
+            var day = document.getElementById("dateSelection").value;
+            var hour = document.getElementById("hourSelection").value;
+            var minute = document.getElementById("minuteSelection").value;
+
+            var selectedTimeStamp = "4/" + day + "/20 " + hour + ":" + minute;
+            console.log("selectionTimeStamp: " + selectedTimeStamp);
+
+            //-- sort data by sensor id ----
+            for (var i = 0; i < sensorIDs.length; i++) {
+
+                //-- filter for time and sensorid
+                var filteredData = data.filter(function (d) {
+                    if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == selectedTimeStamp) {
+                        return d;
+                    }
+                })
+                //-- get average
+                var valueAvg = d3.mean(filteredData, function (d) {
+                    return d.Value;
+                });
+
+                if(valueAvg == undefined){
+                    valueAvg = 0;
+                }
+
+                //-- add to allFiltData
+                var temp = {
+                    "Sensorid": sensorIDs[i],
+                    "Value": valueAvg
+                }
+
+                allFiltData.push(temp);
+
+            }
+            console.log("finished data");
+            updateGraph();
+        });
+    }
+
+    function updateGraph() {
+        console.log("start update");
+        var maxY = d3.max(allFiltData, function (d) {
+            return d.Value
+        });
+
+        console.log("maxY: "+maxY);
+        var duration = 300;
+
+
+        xScale.domain(allFiltData.map((s) => s.Sensorid));
+        yScale.domain([0, maxY+5]);
+
+        console.log(allFiltData);
+
+        var bars = svg.selectAll(".bar")
+            .data(allFiltData);
+
+        bars
+            .enter()
+            .append('rect')
+            .attr('class', 'bar')
+            .attr("fill", "red")
+            .attr('width', xScale.bandwidth())
+            .attr('height', 0)
+            .attr('y', height)
+            .merge(bars)
+            .transition()
+            .duration(duration)
+            .attr('x', (s) => xScale(s.Sensorid))
+            .attr('y', (s) => yScale(s.Value))
+            .attr('height', (s) => height - yScale(s.Value))
+            .attr('width', xScale.bandwidth())
+
+
+        bars
+            .exit()
+            .transition()
+            .duration(duration)
+            .attr('height', 0)
+            .attr('y', height)
+            .remove();
+
+
+        var xaxis = d3.axisBottom(xScale);
+
+        var yaxis = d3.axisLeft(yScale);
+
+
+        svg.select('.x.axis')
+            .transition()
+            .duration(duration)
+            .call(xaxis);
+
+        svg.select('.y.axis')
+            .transition()
+            .duration(duration)
+            .call(yaxis);
+    }
+
+</script>
