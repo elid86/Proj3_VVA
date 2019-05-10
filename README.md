@@ -23,9 +23,19 @@
   
   
   
-## Plan 
-
-1. Create a map of the location with a dot for each reading of a specific time where each dot is colored based on the radiation levels. It will also include a slider to allow the user to adjust which time they are viewing the readings for as well as an option to view only static readings, only mobile readings and both. This will allow us to visually see the location of the areas radiation levels and easily spot outlier readings to determine if certain sensors should be considered too unscertain to trust.
-
-2. A line graph showing each sensors reading over time. This will be filterable by mobile, static and both as well as selecting which area(s) to view. The user will also be able to view the average reading for each area. This will allow the user to see if certain vehicles are transfering to and from extreme and mild levels of radiation to determine if they could be spreading the radiation of the vehicle 
+## Findings
+  Below shows the findings for the questions asked in the mini challenge document. 
   
+    
+  2. Most showed mostly consistent ranges amongst their readings (such as sensor 14 visualized visualized below). But, by viewing each of the sensors over time, it is easier to see those that have a more broad range of readings and contain outlier readings. Below, we can see sensor 15 didn't have any readings from late wednesday evening to late friday evening. This could have been due to the sensor completely shutting down or other issues. Sensor 4 shows a potential outlier value Friday at roughly 00:00 and a very large outlier at around 21:00. Lastly, sensor 12 at first glance appears more consistent but the range of readings is incredibly large towards the second half of the timeset. 
+<img width="493" alt="Screen Shot 2019-05-10 at 1 23 50 PM" src="https://user-images.githubusercontent.com/45048090/57548648-1c772580-7327-11e9-9db6-3873097d864f.png"><img width="519" alt="Screen Shot 2019-05-10 at 1 23 38 PM" src="https://user-images.githubusercontent.com/45048090/57549114-4aa93500-7328-11e9-9e2d-715a50c84540.png"><img width="496" alt="Screen Shot 2019-05-10 at 1 23 56 PM" src="https://user-images.githubusercontent.com/45048090/57549119-4ed55280-7328-11e9-8548-85eaf9b35b42.png"><img width="495" alt="Screen Shot 2019-05-10 at 1 24 07 PM" src="https://user-images.githubusercontent.com/45048090/57549121-51d04300-7328-11e9-9924-4d89dd29456f.png">
+
+  3. The first thing we have noticed, when viewing all the sensors at once they mostly stay within the same general range and seem to have very similar readings. However, towards late wedensday all sensors who begin showing an increase in uncertanty begin around the same time.  However, even though their ranges increase, their average values still look to be around the same area. As if they are all affected at once from the earthquake and that begins causing sensor issues but the actual amount of radiation isn't showing much change. 
+  <img width="483" alt="Screen Shot 2019-05-10 at 1 45 26 PM" src="https://user-images.githubusercontent.com/45048090/57550099-f6538480-732a-11e9-87b0-66f06494e8f4.png">
+  
+  Secondly, sensors closest to the powerplant, 13, 15 and 12, showed a lot of inconsistency in their readings. As mentioned before, sensor 15 didn't have any readings for an entire two days. However, sensor 9 is located in old town and is the next closest to the plant and while the values ranges are still fairly large, they do show a consistent increase in readings after roughly 14:00 thursday. During which time the ranges increased as well. Even more so, sensor 1 is across the town from the plant and contains a very small consistent range through the entire time. This makes us think that the more affected the sensor is by radiation, the more incosistent the readings. 
+ 
+<img width="487" alt="Screen Shot 2019-05-10 at 1 38 12 PM" src="https://user-images.githubusercontent.com/45048090/57549593-9ad4c700-7329-11e9-995b-8916d37dbc50.png">
+<img width="492" alt="Screen Shot 2019-05-10 at 1 36 17 PM" src="https://user-images.githubusercontent.com/45048090/57549818-37976480-732a-11e9-9e6d-63ad3f8764e4.png">
+
+4. As mentioned in the previous response, it seems as though the earthquake combined with the location in reference to the plant caused more inaccuracy amongst the sensors. This 
