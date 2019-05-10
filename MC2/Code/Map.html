@@ -265,6 +265,7 @@
         <option value="59">59</option>
     </select> <button onclick="updateData()">Update</button></p>
     <svg id="barGraph" width="600" height="400" />
+    <svg id="lineGraph" width="600" height="400" />
 
 </body>
 
@@ -289,6 +290,20 @@
     const xScale = d3.scaleBand()
         .range([0, width])
         .padding(0.2)
+
+    //--- add titles ---------//
+    chart.append('text')
+        .attr('x', -height/2)
+        .attr('y', -margin/2)
+        .attr('transform', 'rotate(-90)')
+        .attr('text-anchor', 'middle')
+        .text('Reading (cpm)')
+
+    chart.append('text')
+        .attr('x', width / 2 )
+        .attr('y', -15)
+        .attr('text-anchor', 'middle')
+        .text('Sensor Readings at Selected Time')
 
     //--- set up base data -----//
     const sensorIDs = [1,4,6,9,11,12,13,14,15];
@@ -367,6 +382,15 @@
             .attr('y', (s) => yScale(s.Value))
             .attr('height', (s) => height - yScale(s.Value))
             .attr('width', xScale.bandwidth())
+
+        var bars = svg.selectAll(".bar");
+        bars
+            .on('mouseenter', function (actual, i) {
+                d3.select(this).attr('opacity', 0.5)
+            })
+            .on('mouseleave', function (actual, i) {
+                d3.select(this).attr('opacity', 1)
+            })
 
     }
 
@@ -464,6 +488,13 @@
             .attr('y', height)
             .remove();
 
+        bars
+            .on('mouseenter', function (actual, i) {
+                d3.select(this).attr('opacity', 0.5)
+            })
+            .on('mouseleave', function (actual, i) {
+                d3.select(this).attr('opacity', 1)
+            })
 
         var xaxis = d3.axisBottom(xScale);
 
@@ -480,5 +511,107 @@
             .duration(duration)
             .call(yaxis);
     }
+
+</script>
+
+<!---------Static Line Chart------------->
+<script>
+
+    const svgLine = d3.select("#lineGraph");
+
+    //--- set ranges ---
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+
+    //--- build graph ---
+    svgLine.append("g")
+        .attr("transform",
+            "translate(" + margin + "," + margin + ")");
+
+    //--- set base data -----
+    //** sensorIDs order : [1,4,6,9,11,12,13,14,15] **
+    const sensorColors = ["Red","Orange","Gold","Green","LimeGreen","Blue", "DarkBlue", "Purple", "DeepPink"];
+
+    var parseTime = d3.timeParse("%m-%-d-%y %H:%M");
+
+    //--- import data ----------------------//
+    allFiltData = [];
+
+    //--- get data ----------
+    d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+
+        //-- sort data by sensor id ----
+        for (var i = 0; i < sensorIDs.length; i++) {
+            var currentSensorData =[];
+            for(var day=6; day<=10; day++) {
+                for(var hour=0; hour<=23; hour++){
+                    for(var min=0; min<=59; min++) {
+
+                        //-- filter for time and sensorid
+
+                        var loopTime = "4/"+day+"/20 "+hour+":"+min;
+
+                        var filteredData = data.filter(function (d) {
+                            if ( d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == loopTime) {
+                                return d;
+                            }
+                        })
+                        //-- get average
+                        var valueAvg = d3.mean(filteredData, function (d) {
+                            return d.Value;
+                        });
+
+                        if (valueAvg == undefined) {
+                            valueAvg = 0;
+                        }
+
+                        //-- add to allFiltData
+                        var temp = {
+                            "time": parseTime(loopTime),
+                            "value": valueAvg
+                        }
+                        console.log("---time for "+sensorIDs[i]+": "+loopTime)
+                        console.log("parseTime: "+parseTime(loopTime))
+
+                        currentSensorData.push(temp);
+
+                    }
+                }
+            }
+
+            //--- define the line for sensor i ----
+            var valueLine = d3.line()
+                .x(function(d) { return x(d.time); })
+                .y(function(d) { return y(d.value); });
+
+            //--- add path ----
+            svgLine.append("path")
+                .data([data])
+                .attr("class", "line")
+                .attr("d", valueLine)
+                .style("stroke", sensorColors[i])
+                .attr("id","path"+sensorIDs[i]);
+
+
+            console.log("finished data for: "+sensorIDs[i]);
+
+        }
+
+    });
+
+    //--- Scale the range of the data ----
+    x.domain([parseTime("4/6/20 00:00", "4/10/20 23:59")]);
+    y.domain([0, 25]);
+
+    // Add the X Axis
+    svgLine.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // Add the Y Axis
+    svgLine.append("g")
+        .call(d3.axisLeft(y));
+
+
 
 </script>
