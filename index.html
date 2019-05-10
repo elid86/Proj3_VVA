@@ -2,8 +2,9 @@
 <meta charset="utf-8">
 
 <head>
-    <title>Basic geo (svg)</title>
+    <title>Challenge 2</title>
 </head>
+<p style = "font-size: 35px", align="center">Porject 3: Challenge 2</p>    
 
 <style>
     #content .map path {
@@ -248,11 +249,8 @@
                                 return d.Sensor;
                             }).on("mouseover", mouseOver).on("mouseout", mouseOut);
                         console.log("finished");
-                        console.log(data[0]);
-                        arr = data;
-                        console.log("yes",arr);
+                       
                     });
-
                     function mouseOver(d) {
                         d3.select("#tooltip").transition().duration(200).style("opacity", .9);
                         var x = d.Sensor
@@ -266,7 +264,6 @@
                                 .style("left", (d3.event.pageX) + "px")
                                 .style("top", (d3.event.pageY - 28) + "px");
                         }
-                        //console.log(d);
                     }
 
                     function toolTip(n, d) {
@@ -297,7 +294,6 @@
 <!---------Bar chart ------------->
 <script>
 
-        console.log("HERE: ", arr);
         //--- create graph ----------------------//
         const margin = 60;
         const width = 600 - 2 * margin;
@@ -371,7 +367,7 @@
                 }
 
                 allFiltData.push(temp);
-
+               
             }
             console.log("finished data")
             await buildInital();
