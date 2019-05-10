@@ -50,10 +50,10 @@ Please excuse the watermark. The video editing software I used included it.
 <img width="520" alt="Screen Shot 2019-05-10 at 2 08 34 PM" src="https://user-images.githubusercontent.com/45048090/57550976-6f53db80-732d-11e9-8cb6-37bbc5871b98.png">
 <img width="478" alt="Screen Shot 2019-05-10 at 2 11 36 PM" src="https://user-images.githubusercontent.com/45048090/57551015-8bf01380-732d-11e9-905a-35ebdf1e79d9.png">
 
-##Contributions
+## Contributions
 
 Our group consisted of 3 members, including Matthew Hendrick, Elizabeth Doyle, and Brandon Stehling. The group worked on the visualization together as a result of the small time constraints.
 
 Matthew Hendrick helped create the map of St. Himark which included using the shape files to create a geoJson file to draw the correct shapes on the map, plotting the locations of the static sensors and plotting the location of the nuclear power plant.
 
-Brandon Stehling helped with the creation of the demo video along with finalizing the readme document. During the project, 
+Brandon Stehling helped with the creation of the demo video along with finalizing the readme document. He helped with planning implementation and anaylzing the findings of the data. Brandon also worked on a time slider addition, but this is not present in the final application due to limited time constraints.
