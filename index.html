@@ -161,7 +161,7 @@
 
 
         <script>
-            d3.json('StHimark.geojson', geojson => {
+            d3.json('MC2/Code/StHimark.geojson', geojson => {
 
                 let width = 400,
                     height = 400;
@@ -225,7 +225,7 @@
 
 
                     //loads the static sensor locations
-                    d3.csv("../data/StaticSensorLocations.csv", function(data) {
+                    d3.csv("MC2/data/StaticSensorLocationsREDOWNLOAD.csv", function(data) {
                         StaticLocations = data;
                         //console.log(data);
 
@@ -332,7 +332,7 @@
         console.log("start!");
 
         //--- get data ----------
-        d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", async function (data) {
+        d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", async function (data) {
 
             //--- set up time selected ----
             var day = document.getElementById("dateSelection").value;
@@ -439,7 +439,7 @@
 
            if(dataType == "static") {
 
-               d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+               d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
                    //-- sort data by sensor id ----
                    for (var i = 0; i < sensorIDs.length; i++) {
 
@@ -475,7 +475,7 @@
                });
            } else {
 
-               d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+               d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
 
                    //-- filter for time
                    var filteredData = data.filter(function (d) {
@@ -591,6 +591,7 @@
 <!---------Static Line Chart------------->
 <script>
     var parseTime = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
+    var previousTime = "";
 
     function loadLineChart() {
         const svgL = d3.select("#lineGraph");
@@ -619,7 +620,7 @@
 
 
         //--- add lines from data ------
-        d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", async function (data) {
+        d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", async function (data) {
 
             //-- reduce data ---
             var data = await data.filter(function (d) {
@@ -723,14 +724,16 @@
         var min = document.getElementById("minuteSelection").value;
 
         var selectedTimeStamp = "2020-04-"+8+" "+hour+":"+min+":00";
+        previousTime = selectedTimeStamp;
 
 
         svgLine.append("line")
             .attr("x1", x(parseTime(selectedTimeStamp)))
-            .attr("y1", -height)
+            .attr("y1", 0)
             .attr("x2", x(parseTime(selectedTimeStamp)))
-            .attr("y2", height - margin*2)
-            .style("stroke-width", 1)
+            .attr("y2", height)
+            .style("stroke-width", 2)
+            .style("stroke-dasharray", ("3, 3"))
             .style("stroke", "black")
             .style("fill", "none")
             .attr("id","SelectedTime");
@@ -749,7 +752,7 @@
 
         //-- delete old line -----
 
-        var selectedTime = graphL.select("#SelectedTime");
+        var selectedTime = graphL.select("SelectedTime");
 
         selectedTime
             .remove()
@@ -758,7 +761,6 @@
 
         //--- add new
         var x = d3.scaleTime().range([0, width]);
-        var y = d3.scaleLinear().range([height, 0]);
 
         graphL
             .append("line")
@@ -770,10 +772,11 @@
             .attr("y2", height - margin*2)
             .style("stroke-width", 1)
             .style("stroke", "black")
+            .style("stroke-dasharray", ("3, 3"))
             .style("fill", "none")
             .attr("id","SelectedTime");
 
-
+        previousTime = selectedTimeStamp;
     }
 
 

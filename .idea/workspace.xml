@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c067a197-bd9e-4448-a838-7bd50ead7954" name="Default Changelist" comment="" />
+    <list default="true" id="c067a197-bd9e-4448-a838-7bd50ead7954" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -14,17 +17,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/MC2/Code/Map.html">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="760" column="52" selection-start-line="760" selection-start-column="52" selection-end-line="760" selection-end-column="52" />
+            <state relative-caret-position="399">
+              <caret line="735" column="42" selection-start-line="735" selection-start-column="42" selection-end-line="735" selection-end-column="42" />
               <folding>
-                <element signature="n#select#0;n#p#0;n#body#0;n#!!top" />
-                <element signature="n#select#1;n#p#0;n#body#0;n#!!top" />
-                <element signature="n#select#2;n#p#0;n#body#0;n#!!top" />
                 <element signature="n#select#0;n#P#2;n#div#0;n#body#0;n#!!top" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#svg#0;n#div#0;n#body#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,8 +40,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MC2/data/StaticTimeData.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1240">
-              <caret line="99" column="33" lean-forward="true" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="33" />
+            <state relative-caret-position="1485">
+              <caret line="99" column="33" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -77,6 +75,7 @@
         <option value="$PROJECT_DIR$/MC2/data/StaticDataTimeParse.js" />
         <option value="$PROJECT_DIR$/MC2/data/StaticTimeData.html" />
         <option value="$PROJECT_DIR$/MC2/Code/Map.html" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -91,7 +90,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -104,23 +102,11 @@
               <item name="Proj3_VVA" type="462c0819:PsiDirectoryNode" />
               <item name="MC2" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Proj3_VVA" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proj3_VVA" type="462c0819:PsiDirectoryNode" />
-              <item name="MC2" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Proj3_VVA" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proj3_VVA" type="462c0819:PsiDirectoryNode" />
-              <item name="MC2" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="StHimarkNeighborhoodShapefile" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -128,9 +114,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/MC2/data" />
     </key>
   </component>
@@ -167,12 +155,13 @@
       <option name="presentableId" value="Default" />
       <updated>1557079184679</updated>
       <workItem from="1557079189592" duration="3502000" />
-      <workItem from="1557250182400" duration="35827000" />
+      <workItem from="1557250182400" duration="36229000" />
+      <workItem from="1557506529636" duration="1885000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39329000" />
+    <option name="totallyTimeSpent" value="41616000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -184,14 +173,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="773" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="773" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1858618" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1858618" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.045592707" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.045592707" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -209,6 +199,16 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="735" column="42" selection-start-line="735" selection-start-column="42" selection-end-line="735" selection-end-column="42" />
+          <folding>
+            <element signature="n#select#0;n#P#2;n#div#0;n#body#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MC2/data/StaticDataTimeParse.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -218,23 +218,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MC2/data/StaticTimeData.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1240">
-          <caret line="99" column="33" lean-forward="true" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MC2/Code/Map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="760" column="52" selection-start-line="760" selection-start-column="52" selection-end-line="760" selection-end-column="52" />
-          <folding>
-            <element signature="n#select#0;n#p#0;n#body#0;n#!!top" />
-            <element signature="n#select#1;n#p#0;n#body#0;n#!!top" />
-            <element signature="n#select#2;n#p#0;n#body#0;n#!!top" />
-            <element signature="n#select#0;n#P#2;n#div#0;n#body#0;n#!!top" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#svg#0;n#div#0;n#body#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="1485">
+          <caret line="99" column="33" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="33" />
         </state>
       </provider>
     </entry>
