@@ -367,7 +367,7 @@
             }
             console.log("finished data")
             await buildInital();
-            loadLineChart();
+            await loadLineChart();
         });
 
     //--- build initial axises ----------//
@@ -509,6 +509,7 @@
                    }
                    console.log("finished data");
                    updateGraph();
+                   addSelectedTimeLine();
                });
 
            }
@@ -589,6 +590,8 @@
 
 <!---------Static Line Chart------------->
 <script>
+    var parseTime = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
+
     function loadLineChart() {
         const svgL = d3.select("#lineGraph");
 
@@ -598,7 +601,8 @@
 
         //--- build graph ---
         var svgLine = svgL.append("g")
-            .attr('transform', `translate(${margin}, ${margin})`);
+            .attr('transform', `translate(${margin}, ${margin})`)
+            .attr("id","lineGraphG");
 
         //--- define the line for sensor i ----
         var valueLine = d3.line()
@@ -614,8 +618,7 @@
         //** sensorIDs order : [1,4,6,9,11,12,13,14,15] **
 
 
-        var parseTime = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
-
+        //--- add lines from data ------
         d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", async function (data) {
 
             //-- reduce data ---
@@ -712,6 +715,65 @@
             .attr("dy", ".35em")
             .attr("transform", "rotate(90)")
             .style("text-anchor", "start");
+
+        //--- add selected time line ---
+        //--- get date ----
+        var day = document.getElementById("dateSelection").value;
+        var hour = document.getElementById("hourSelection").value;
+        var min = document.getElementById("minuteSelection").value;
+
+        var selectedTimeStamp = "2020-04-"+8+" "+hour+":"+min+":00";
+
+
+        svgLine.append("line")
+            .attr("x1", x(parseTime(selectedTimeStamp)))
+            .attr("y1", -height)
+            .attr("x2", x(parseTime(selectedTimeStamp)))
+            .attr("y2", height - margin*2)
+            .style("stroke-width", 1)
+            .style("stroke", "black")
+            .style("fill", "none")
+            .attr("id","SelectedTime");
+    }
+
+    function addSelectedTimeLine(){
+        //--- get date ----
+        var day = document.getElementById("dateSelection").value;
+        var hour = document.getElementById("hourSelection").value;
+        var min = document.getElementById("minuteSelection").value;
+
+        var selectedTimeStamp = "2020-04-"+day+" "+hour+":"+min+":00";
+
+        //-- update  graph ------
+        const graphL = d3.select("#lineGraphG");
+
+        //-- delete old line -----
+
+        var selectedTime = graphL.select("#SelectedTime");
+
+        selectedTime
+            .remove()
+            .transition()
+            .duration(500);
+
+        //--- add new
+        var x = d3.scaleTime().range([0, width]);
+        var y = d3.scaleLinear().range([height, 0]);
+
+        graphL
+            .append("line")
+            .transition()
+            .duration(500)
+            .attr("x1", x(parseTime(selectedTimeStamp)))
+            .attr("y1", -height)
+            .attr("x2", x(parseTime(selectedTimeStamp)))
+            .attr("y2", height - margin*2)
+            .style("stroke-width", 1)
+            .style("stroke", "black")
+            .style("fill", "none")
+            .attr("id","SelectedTime");
+
+
     }
 
 

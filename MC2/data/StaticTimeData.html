@@ -75,52 +75,59 @@ const sensorIDs = [1,4,6,9,11,12,13,14,15];
 const allSensorData = [];
 
 //--- get data ----------
-d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+d3.csv("../data/MobileSensorReadingsREDOWNLOAD.csv", function (data) {
 
 
 //-- sort data by sensor id ----
-for (var i = 0; i < sensorIDs.length; i++) {
-for (var day = 6; day <= 10; day++) {
-for (var hour = 0; hour <= 23; hour++) {
-for (var min = 0; min <= 59; min++) {
+    for (var day = 6; day <= 10; day++) {
+        if (day < 10) {
+            day = "0" + day;
+        }
+        for (var hour = 0; hour <= 23; hour++) {
+            if (hour < 10) {
+                hour = "0" + hour;
+            }
+            for (var min = 0; min <= 59; min++) {
+                if (min < 0) {
+                    min = "0" + min;
+                }
+                //-- filter for time and sensorid
 
-//-- filter for time and sensorid
+                var loopTime = "2020-4-" + day + " " + hour + ":" + min + ":00";
 
-var loopTime = "4/" + day + "/20 " + hour + ":" + min;
+                var filteredData = filteredSensors.filter(function (d) {
+                    if (d["Timestamp"] == loopTime) {
+                        return d;
+                    }
+                })
+                //-- get average
+                var valueAvg = d3.mean(filteredData, function (d) {
+                    return d.Value;
+                });
 
-var filteredData = data.filter(function (d) {
-if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == loopTime) {
-return d;
-}
-})
-//-- get average
-var valueAvg = d3.mean(filteredData, function (d) {
-return d.Value;
-});
+                if (valueAvg == undefined) {
+                    valueAvg = 0;
+                }
 
-if (valueAvg == undefined) {
-valueAvg = 0;
-}
+                //-- add to allFiltData
+                var temp = {
+                    sensorId: sensorIDs[i],
+                    time: loopTime,
+                    value: valueAvg
+                };
+                console.log("---time for " + sensorIDs[i] + ": " + loopTime)
 
-//-- add to allFiltData
-var temp = {
-sensorId : sensorIDs[i],
-time: loopTime,
-value: valueAvg
-};
-console.log("---time for " + sensorIDs[i] + ": " + loopTime)
+                allSensorData.push(temp);
 
-allSensorData.push(temp);
+            }
+        }
+    }
 
-}
-}
-}
 
 console.log("finished data for: " + sensorIDs[i]);
 
-}
 
-downloadCSV({ filename: "VVA_Proj3_StaticSensorTimeData.csv" });
+downloadCSV({ filename: "MobileAreaData.csv" });
 
 });
 
