@@ -159,7 +159,10 @@
         <script src="https://d3js.org/d3.v3.min.js"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
 
-
+<script type='text/javascript' > 
+  var arr; 
+</script>
+    
         <script>
             d3.json('MC2/Code/StHimark.geojson', geojson => {
 
@@ -245,6 +248,9 @@
                                 return d.Sensor;
                             }).on("mouseover", mouseOver).on("mouseout", mouseOut);
                         console.log("finished");
+                        console.log(data[0]);
+                        arr = data;
+                        console.log("yes",arr);
                     });
 
                     function mouseOver(d) {
@@ -276,7 +282,8 @@
 
                 update(geojson);
             });
-
+            
+            
         </script>
 
         <svg id="barGraph" width="600" height="400" style="float:right" />
@@ -290,6 +297,7 @@
 <!---------Bar chart ------------->
 <script>
 
+        console.log("HERE: ", arr);
         //--- create graph ----------------------//
         const margin = 60;
         const width = 600 - 2 * margin;
