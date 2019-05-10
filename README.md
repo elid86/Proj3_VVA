@@ -1,5 +1,8 @@
 # Proj3_VVA
 
+DEMO LINK:  https://elid86.github.io/Proj3_VVA/
+VIDEO LINK: 
+
 ## Purpose
 
   The purpose this project is to create aids to help visualize the radiation coming from the Always Safe nuclear power plant. The main goals to be accomplished are: 
