@@ -14,7 +14,7 @@
     #content .map circle:hover {
         fill: black;
     }
-    
+
     #tooltip {
         position: absolute;
         text-align: center;
@@ -116,8 +116,9 @@
                     })
                     .attr("r", "8px")
                     .attr("fill", "yellow")
-                    .attr('id', "Hospital")
-                    .attr("stroke", "black");
+                    .attr('id', "PowerPlant")
+                    .attr("stroke", "black")
+                    .on("mouseover", mouseOver).on("mouseout", mouseOut);
                 var StaticLocations
 
 
@@ -126,24 +127,7 @@
                     StaticLocations = data;
                     //console.log(data);
 
-                    function mouseOver(d) {
-                        d3.select("#tooltip").transition().duration(200).style("opacity", .9);
 
-                        d3.select("#tooltip").html(toolTip(d.Sensor))
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
-                        console.log(d);
-                    }
-
-                    function toolTip(n) {
-                        console.log(n);
-                        return "<h4>" + n + "</h4>";
-                    }
-
-
-                    function mouseOut() {
-                        d3.select("#tooltip").transition().duration(500).style("opacity", 0);
-                    }
 
                     u.enter().data(data)
                         .append('circle')
@@ -157,12 +141,35 @@
                         .attr("fill", "red")
                         .attr('id', function(d) {
                             return d.Sensor;
-                        }).on("mouseover", mouseOver).on("mouseout",mouseOut);
+                        }).on("mouseover", mouseOver).on("mouseout", mouseOut);
                     console.log("finished");
                 });
 
+                function mouseOver(d) {
+                    d3.select("#tooltip").transition().duration(200).style("opacity", .9);
+                    var x = d.Sensor
+                    if (typeof x  != "undefined" && typeof d.Value == "undefined") {
+                        d3.select("#tooltip").html(toolTip(d.Sensor, "Static Sensor #"))
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px");
+                    }
+                    else{
+                        d3.select("#tooltip").html(toolTip("", "Power Plant"))
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY - 28) + "px");
+                    }
+                    //console.log(d);
+                }
+
+                function toolTip(n, d) {
+                    //console.log(n);
+                    return "<h4>" + d + " " + n + "</h4>";
+                }
 
 
+                function mouseOut() {
+                    d3.select("#tooltip").transition().duration(500).style("opacity", 0);
+                }
             }
 
             update(geojson);
