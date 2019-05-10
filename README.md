@@ -49,3 +49,11 @@ Please excuse the watermark. The video editing software I used included it.
 5. We used the data as a static collection. The benefits of this gave us an overlook of before, during and after the earthquake to help analyze how it affects the sensors in a general situation. If we were reading them as they came in at the time of the incedent, we would have not known which readings to see as inconsistent and which to see and an extreme fluxation of radiation. For example, on Wednesday evening at 19:05 sensor 12 seems to have sky rocketed with radiation and being as it is the 3rd closest it makes sense. But, the two closest sensors are pretty average. If people were just looking at sensor 12 for that area live they would probably call for an immediate evacuation without realizing it's just a sensor misreading.
 <img width="520" alt="Screen Shot 2019-05-10 at 2 08 34 PM" src="https://user-images.githubusercontent.com/45048090/57550976-6f53db80-732d-11e9-8cb6-37bbc5871b98.png">
 <img width="478" alt="Screen Shot 2019-05-10 at 2 11 36 PM" src="https://user-images.githubusercontent.com/45048090/57551015-8bf01380-732d-11e9-905a-35ebdf1e79d9.png">
+
+##Contributions
+
+Our group consisted of 3 members, including Matthew Hendrick, Elizabeth Doyle, and Brandon Stehling. The group worked on the visualization together as a result of the small time constraints.
+
+Matthew Hendrick helped create the map of St. Himark which included using the shape files to create a geoJson file to draw the correct shapes on the map, plotting the locations of the static sensors and plotting the location of the nuclear power plant.
+
+Brandon Stehling helped with the creation of the demo video along with finalizing the readme document. During the project, 
