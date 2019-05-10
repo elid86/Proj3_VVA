@@ -341,7 +341,7 @@
     var loc = window.location.pathname;
     console.log(loc);
     //--- get data ----------
-    d3.csv("../MC2/data/StaticSensorReadingsREDOWNLOAD.csv", async function(data) {
+    d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", async function(data) {
 
         //--- set up time selected ----
         var day = document.getElementById("dateSelection").value;
@@ -450,7 +450,7 @@
 
         if (dataType == "static") {
 
-            d3.csv("../MC2/data/StaticSensorReadingsREDOWNLOAD.csv", function(data) {
+            d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", function(data) {
                 //-- sort data by sensor id ----
                 for (var i = 0; i < sensorIDs.length; i++) {
 
@@ -486,7 +486,7 @@
             });
         } else {
 
-            d3.csv("../MC2/data/StaticSensorReadingsREDOWNLOAD.csv", function(data) {
+            d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", function(data) {
 
                 //-- filter for time
                 var filteredData = data.filter(function(d) {
@@ -632,7 +632,7 @@
 
 
         //--- add lines from data ------
-        d3.csv("../MC2/data/StaticSensorReadingsREDOWNLOAD.csv", async function(data) {
+        d3.csv("../Proj3_VVA/MC2/data/StaticSensorReadingsREDOWNLOAD.csv", async function(data) {
 
             //-- reduce data ---
             var data = await data.filter(function(d) {
