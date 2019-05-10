@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c067a197-bd9e-4448-a838-7bd50ead7954" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="735" column="42" selection-start-line="735" selection-start-column="42" selection-end-line="735" selection-end-column="42" />
+            <state relative-caret-position="409">
+              <caret line="726" column="46" selection-start-line="726" selection-start-column="46" selection-end-line="726" selection-end-column="46" />
               <folding>
                 <element signature="n#select#0;n#P#2;n#div#0;n#body#0;n#!!top" />
               </folding>
@@ -156,12 +155,12 @@
       <updated>1557079184679</updated>
       <workItem from="1557079189592" duration="3502000" />
       <workItem from="1557250182400" duration="36229000" />
-      <workItem from="1557506529636" duration="1885000" />
+      <workItem from="1557506529636" duration="2898000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41616000" />
+    <option name="totallyTimeSpent" value="42629000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -201,8 +200,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="735" column="42" selection-start-line="735" selection-start-column="42" selection-end-line="735" selection-end-column="42" />
+        <state relative-caret-position="409">
+          <caret line="726" column="46" selection-start-line="726" selection-start-column="46" selection-end-line="726" selection-end-column="46" />
           <folding>
             <element signature="n#select#0;n#P#2;n#div#0;n#body#0;n#!!top" />
           </folding>

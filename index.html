@@ -228,7 +228,7 @@
 
 
                     //loads the static sensor locations
-                    d3.csv("MC2/data/StaticSensorLocationsREDOWNLOAD.csv", function(data) {
+                    d3.csv("MC2/data/StaticSensorLocations.csv", function(data) {
                         StaticLocations = data;
                         //console.log(data);
 
@@ -517,7 +517,6 @@
                    }
                    console.log("finished data");
                    updateGraph();
-                   addSelectedTimeLine();
                });
 
            }
@@ -525,6 +524,8 @@
 
     function updateGraph() {
         console.log("start update");
+        addSelectedTimeLine();
+
         var maxY = d3.max(allFiltData, function (d) {
             return d.Value
         });
@@ -731,7 +732,7 @@
         var hour = document.getElementById("hourSelection").value;
         var min = document.getElementById("minuteSelection").value;
 
-        var selectedTimeStamp = "2020-04-"+8+" "+hour+":"+min+":00";
+        var selectedTimeStamp = "2020-04-"+day+" "+hour+":"+min+":00";
         previousTime = selectedTimeStamp;
 
 
@@ -742,12 +743,13 @@
             .attr("y2", height)
             .style("stroke-width", 2)
             .style("stroke-dasharray", ("3, 3"))
-            .style("stroke", "black")
+            .style("stroke", "grey")
             .style("fill", "none")
             .attr("id","SelectedTime");
     }
 
     function addSelectedTimeLine(){
+        console.log("addselectedTimeLine called");
         //--- get date ----
         var day = document.getElementById("dateSelection").value;
         var hour = document.getElementById("hourSelection").value;
@@ -760,7 +762,7 @@
 
         //-- delete old line -----
 
-        var selectedTime = graphL.select("SelectedTime");
+        var selectedTime = graphL.select("#SelectedTime");
 
         selectedTime
             .remove()
@@ -769,18 +771,19 @@
 
         //--- add new
         var x = d3.scaleTime().range([0, width]);
+        x.domain([parseTime("2020-04-06 00:00:00"), parseTime("2020-04-10 23:00:00")]);
 
         graphL
             .append("line")
             .transition()
             .duration(500)
             .attr("x1", x(parseTime(selectedTimeStamp)))
-            .attr("y1", -height)
+            .attr("y1", 0)
             .attr("x2", x(parseTime(selectedTimeStamp)))
-            .attr("y2", height - margin*2)
-            .style("stroke-width", 1)
-            .style("stroke", "black")
+            .attr("y2", height)
+            .style("stroke-width", 2)
             .style("stroke-dasharray", ("3, 3"))
+            .style("stroke", "grey")
             .style("fill", "none")
             .attr("id","SelectedTime");
 
