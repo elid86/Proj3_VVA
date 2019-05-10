@@ -57,3 +57,5 @@ Our group consisted of 3 members, including Matthew Hendrick, Elizabeth Doyle, a
 Matthew Hendrick helped create the map of St. Himark which included using the shape files to create a geoJson file to draw the correct shapes on the map, plotting the locations of the static sensors and plotting the location of the nuclear power plant.
 
 Brandon Stehling helped with the creation of the demo video along with finalizing the readme document. He helped with planning implementation and anaylzing the findings of the data. Brandon also worked on a time slider addition, but this is not present in the final application due to limited time constraints.
+
+Elizabeth Doyle built the bar chart and the line graph and formatted/analyzed the data for each to view. She also connected added the time selection options and the update functions that move the selected time bar on the line graph and update the bars on the bar chart accordingly. She also did the questions on the readme.
