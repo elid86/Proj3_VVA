@@ -2,7 +2,7 @@
 
 DEMO LINK:  https://elid86.github.io/Proj3_VVA/
 
-VIDEO LINK: 
+VIDEO LINK: https://www.youtube.com/watch?v=mUUzIKOB9es&feature=youtu.be
 
 ## Purpose
 
