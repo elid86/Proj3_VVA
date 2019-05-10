@@ -3,6 +3,7 @@
 DEMO LINK:  https://elid86.github.io/Proj3_VVA/
 
 VIDEO LINK: https://www.youtube.com/watch?v=mUUzIKOB9es&feature=youtu.be
+Please excuse the watermark. The video editing software I used included it.
 
 ## Purpose
 
