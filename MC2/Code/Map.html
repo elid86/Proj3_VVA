@@ -46,155 +46,25 @@
 </style>
 
 <body>
-    <div id="tooltip"></div>
-    <div id="content">
-        <svg width="400px" height="400px">
-            <g class="map"></g>
-        </svg>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-
-
-    <script>
-        d3.json('StHimark.geojson', geojson => {
-
-            let width = 400,
-                height = 400;
-            let projection = d3.geoEquirectangular().scale(1).translate([0, 0]);
-
-            let geoGenerator = d3.geoPath()
-                .projection(projection);
-
-            //Scaling and translating.
-            var b = geoGenerator.bounds(geojson),
-                s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
-                t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
-
-            projection.scale(s).translate(t);
-
-            function update(geojson) {
-                var u = d3.select('#content g.map')
-                    .selectAll('path')
-                    .data(geojson.features);
-
-                //creates the map
-                u.enter()
-                    .append('path')
-                    .attr('d', geoGenerator);
-
-
-                //adds labels to the towns
-                u.enter()
-                    .append("svg:text")
-                    .text(function(d) {
-                        return d.properties.Nbrhood;
-                    })
-                    .attr("x", function(d) {
-                        //console.log(d);
-                        return geoGenerator.centroid(d)[0];
-                    })
-                    .attr("y", function(d) {
-                        return geoGenerator.centroid(d)[1];
-                    })
-                    .attr("text-anchor", "middle")
-                    .attr('font-size', '6pt');
-
-
-
-                //adds the Nuclear Power Plant to the map
-                var aa = [0.162679, -119.784825];
-                u.enter().data(aa)
-                    .append('circle')
-                    .attr("cx", function(d) {
-                        return projection([aa[1], aa[0]])[0];
-                    })
-                    .attr("cy", function(d) {
-                        return projection([aa[1], aa[0]])[1];
-                    })
-                    .attr("r", "8px")
-                    .attr("fill", "yellow")
-                    .attr('id', "PowerPlant")
-                    .attr("stroke", "black")
-                    .on("mouseover", mouseOver).on("mouseout", mouseOut);
-                var StaticLocations
-
-
-                //loads the static sensor locations 
-                d3.csv("../data/StaticSensorLocations.csv", function(data) {
-                    StaticLocations = data;
-                    //console.log(data);
-
-
-
-                    u.enter().data(data)
-                        .append('circle')
-                        .attr("cx", function(d) {
-                            return projection([d.Long, d.Lat])[0];
-                        })
-                        .attr("cy", function(d) {
-                            return projection([d.Long, d.Lat])[1];
-                        })
-                        .attr("r", "5px")
-                        .attr("fill", "red")
-                        .attr('id', function(d) {
-                            return d.Sensor;
-                        }).on("mouseover", mouseOver).on("mouseout", mouseOut);
-                    console.log("finished");
-                });
-
-                function mouseOver(d) {
-                    d3.select("#tooltip").transition().duration(200).style("opacity", .9);
-                    var x = d.Sensor
-                    if (typeof x  != "undefined" && typeof d.Value == "undefined") {
-                        d3.select("#tooltip").html(toolTip(d.Sensor, "Static Sensor #"))
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
-                    }
-                    else{
-                        d3.select("#tooltip").html(toolTip("", "Power Plant"))
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 28) + "px");
-                    }
-                    //console.log(d);
-                }
-
-                function toolTip(n, d) {
-                    //console.log(n);
-                    return "<h4>" + d + " " + n + "</h4>";
-                }
-
-
-                function mouseOut() {
-                    d3.select("#tooltip").transition().duration(500).style("opacity", 0);
-                }
-            }
-
-            update(geojson);
-        });
-
-    </script>
-
-    <P>Select date: </P>
-    <p> 4/  <select id="dateSelection">
-        <option value="6" selected="selected">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
+<div position:relative; width = "100%">
+    <P>Select Date:   4/  <select id="dateSelection">
+        <option value="06" selected="selected">6</option>
+        <option value="07">7</option>
+        <option value="08">8</option>
+        <option value="09">9</option>
         <option value="10">10</option>
-    </select> /20    <select id="hourSelection">
-        <option value="0" selected="selected">00</option>
-        <option value="1">01</option>
-        <option value="2">02</option>
-        <option value="3">03</option>
-        <option value="4">04</option>
-        <option value="5">05</option>
-        <option value="6">06</option>
-        <option value="7">07</option>
-        <option value="8">08</option>
-        <option value="9">09</option>
+    </select> /20</p>
+    <P>Select Time: <select id="hourSelection">
+        <option value="00" selected="selected">00</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
         <option value="10">10</option>
         <option value="11">11</option>
         <option value="12">12</option>
@@ -270,9 +140,149 @@
         <option value="57">57</option>
         <option value="58">58</option>
         <option value="59">59</option>
-    </select> <button onclick="updateData()">Update</button></p>
-    <svg id="barGraph" width="600" height="400" />
+    </select></p>
+    <P>Select Sensors: <select id="sensorSelection">
+        <option value="static" selected="selected">Static</option>
+        <option value="mobile">Mobile</option>
+    </select></p>
+    <p><button onclick="updateData()">Update</button></p>
+</div>
+<div position:relative; width = "100%">
+    <div id="tooltip"></div>
+        <div id="content" style="float:left">
+            <svg width="400px" height="400px">
+                <g class="map"></g>
+            </svg>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+        <script>
+            d3.json('StHimark.geojson', geojson => {
+
+                let width = 400,
+                    height = 400;
+                let projection = d3.geoEquirectangular().scale(1).translate([0, 0]);
+
+                let geoGenerator = d3.geoPath()
+                    .projection(projection);
+
+                //Scaling and translating.
+                var b = geoGenerator.bounds(geojson),
+                    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+                    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+                projection.scale(s).translate(t);
+
+                function update(geojson) {
+                    var u = d3.select('#content g.map')
+                        .selectAll('path')
+                        .data(geojson.features);
+
+                    //creates the map
+                    u.enter()
+                        .append('path')
+                        .attr('d', geoGenerator);
+
+
+                    //adds labels to the towns
+                    u.enter()
+                        .append("svg:text")
+                        .text(function(d) {
+                            return d.properties.Nbrhood;
+                        })
+                        .attr("x", function(d) {
+                            //console.log(d);
+                            return geoGenerator.centroid(d)[0];
+                        })
+                        .attr("y", function(d) {
+                            return geoGenerator.centroid(d)[1];
+                        })
+                        .attr("text-anchor", "middle")
+                        .attr('font-size', '6pt');
+
+
+
+                    //adds the Nuclear Power Plant to the map
+                    var aa = [0.162679, -119.784825];
+                    u.enter().data(aa)
+                        .append('circle')
+                        .attr("cx", function(d) {
+                            return projection([aa[1], aa[0]])[0];
+                        })
+                        .attr("cy", function(d) {
+                            return projection([aa[1], aa[0]])[1];
+                        })
+                        .attr("r", "8px")
+                        .attr("fill", "yellow")
+                        .attr('id', "PowerPlant")
+                        .attr("stroke", "black")
+                        .on("mouseover", mouseOver).on("mouseout", mouseOut);
+                    var StaticLocations
+
+
+                    //loads the static sensor locations
+                    d3.csv("../data/StaticSensorLocations.csv", function(data) {
+                        StaticLocations = data;
+                        //console.log(data);
+
+
+
+                        u.enter().data(data)
+                            .append('circle')
+                            .attr("cx", function(d) {
+                                return projection([d.Long, d.Lat])[0];
+                            })
+                            .attr("cy", function(d) {
+                                return projection([d.Long, d.Lat])[1];
+                            })
+                            .attr("r", "5px")
+                            .attr("fill", "red")
+                            .attr('id', function(d) {
+                                return d.Sensor;
+                            }).on("mouseover", mouseOver).on("mouseout", mouseOut);
+                        console.log("finished");
+                    });
+
+                    function mouseOver(d) {
+                        d3.select("#tooltip").transition().duration(200).style("opacity", .9);
+                        var x = d.Sensor
+                        if (typeof x  != "undefined" && typeof d.Value == "undefined") {
+                            d3.select("#tooltip").html(toolTip(d.Sensor, "Static Sensor #"))
+                                .style("left", (d3.event.pageX) + "px")
+                                .style("top", (d3.event.pageY - 28) + "px");
+                        }
+                        else{
+                            d3.select("#tooltip").html(toolTip("", "Power Plant"))
+                                .style("left", (d3.event.pageX) + "px")
+                                .style("top", (d3.event.pageY - 28) + "px");
+                        }
+                        //console.log(d);
+                    }
+
+                    function toolTip(n, d) {
+                        //console.log(n);
+                        return "<h4>" + d + " " + n + "</h4>";
+                    }
+
+
+                    function mouseOut() {
+                        d3.select("#tooltip").transition().duration(500).style("opacity", 0);
+                    }
+                }
+
+                update(geojson);
+            });
+
+        </script>
+
+        <svg id="barGraph" width="600" height="400" style="float:right" />
+</div>
     <svg id="lineGraph" width="600" height="400" />
+
 
 </body>
 
@@ -280,83 +290,85 @@
 <!---------Bar chart ------------->
 <script>
 
-    //--- create graph ----------------------//
-    const margin = 60;
-    const width = 600 - 2 * margin;
-    const height = 400 - 2 * margin;
+        //--- create graph ----------------------//
+        const margin = 60;
+        const width = 600 - 2 * margin;
+        const height = 400 - 2 * margin;
 
-    const svg = d3.select("#barGraph");
+        const svg = d3.select("#barGraph");
 
-    const chart = svg.append('g')
-        .attr('transform', `translate(${margin}, ${margin})`)
-        .attr('id','#barChart');
+        const chart = svg.append('g')
+            .attr('transform', `translate(${margin}, ${margin})`)
+            .attr('id', 'barChart');
 
-    const yScale = d3.scaleLinear()
-        .range([height, 0])
+        const yScale = d3.scaleLinear()
+            .range([height, 0])
 
-    const xScale = d3.scaleBand()
-        .range([0, width])
-        .padding(0.2)
+        const xScale = d3.scaleBand()
+            .range([0, width])
+            .padding(0.2)
 
-    //--- add titles ---------//
-    chart.append('text')
-        .attr('x', -height/2)
-        .attr('y', -margin/2)
-        .attr('transform', 'rotate(-90)')
-        .attr('text-anchor', 'middle')
-        .text('Reading (cpm)')
+        //--- add titles ---------//
+        chart.append('text')
+            .attr('x', -height / 2)
+            .attr('y', -margin / 2)
+            .attr('transform', 'rotate(-90)')
+            .attr('text-anchor', 'middle')
+            .text('Reading (cpm)')
 
-    chart.append('text')
-        .attr('x', width / 2 )
-        .attr('y', -15)
-        .attr('text-anchor', 'middle')
-        .text('Sensor Readings at Selected Time')
+        chart.append('text')
+            .attr('x', width / 2)
+            .attr('y', -15)
+            .attr('text-anchor', 'middle')
+            .text('Sensor Readings at Selected Time')
 
-    //--- set up base data -----//
-    const sensorIDs = [1,4,6,9,11,12,13,14,15];
+        //--- set up base data -----//
+        const sensorIDs = [1, 4, 6, 9, 11, 12, 13, 14, 15];
+        const sensorColors = ["Red", "Green", "Blue", "DarkBlue", "Purple", "DeepPink",  "Orange", "Gold", "LimeGreen"];
 
 
-    //--- import data ----------------------//
-    var allFiltData = [];
+        //--- import data ----------------------//
+        var allFiltData = [];
+        console.log("start!");
 
-    console.log("start!");
+        //--- get data ----------
+        d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", async function (data) {
 
-    d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+            //--- set up time selected ----
+            var day = document.getElementById("dateSelection").value;
+            var hour = document.getElementById("hourSelection").value;
+            var min = document.getElementById("minuteSelection").value;
 
-        //--- set up time selected ----
-        var day = document.getElementById("dateSelection").value;
-        var hour = document.getElementById("hourSelection").value;
-        var minute = document.getElementById("minuteSelection").value;
+            var selectedTimeStamp = "2020-04-" + day + " " + hour + ":" + min + ":00";
+            console.log("SelectedTimeStamp: " + selectedTimeStamp);
 
-        var selectedTimeStamp = "4/" + day + "/20 " + hour + ":" + minute;
-        console.log("selectionTimeStamp: " + selectedTimeStamp);
+            //-- sort data by sensor id ----
+            for (var i = 0; i < sensorIDs.length; i++) {
 
-        //-- sort data by sensor id ----
-        for (var i = 0; i < sensorIDs.length; i++) {
+                //-- filter for time and sensorid
+                var filteredData = data.filter(function (d) {
+                    if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == selectedTimeStamp) {
+                        return d;
+                    }
+                })
+                //-- get average
+                var valueAvg = d3.mean(filteredData, function (d) {
+                    return d.Value;
+                });
 
-            //-- filter for time and sensorid
-            var filteredData = data.filter(function (d) {
-                if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == selectedTimeStamp) {
-                    return d;
+                //-- add to allFiltData
+                var temp = {
+                    "Sensorid": sensorIDs[i],
+                    "Value": valueAvg
                 }
-            })
-            //-- get average
-            var valueAvg = d3.mean(filteredData, function (d) {
-                return d.Value;
-            });
 
-            //-- add to allFiltData
-            var temp = {
-                "Sensorid": sensorIDs[i],
-                "Value": valueAvg
+                allFiltData.push(temp);
+
             }
-
-            allFiltData.push(temp);
-
-        }
-        console.log("finished data")
-        buildInital();
-    });
+            console.log("finished data")
+            await buildInital();
+            loadLineChart();
+        });
 
     //--- build initial axises ----------//
     function buildInital() {
@@ -389,14 +401,20 @@
             .attr('y', (s) => yScale(s.Value))
             .attr('height', (s) => height - yScale(s.Value))
             .attr('width', xScale.bandwidth())
+            .style("fill", function(d) { return sensorColors[sensorIDs.indexOf(d.Sensorid)]; });
 
         var bars = svg.selectAll(".bar");
         bars
             .on('mouseenter', function (actual, i) {
-                d3.select(this).attr('opacity', 0.5)
+                var PathName = "#path"+actual.Sensorid;
+                d3.select("#barChart").selectAll("rect").attr('opacity', .2);
+                d3.select(this).attr('opacity', 1);
+                d3.select("#lineGraph").selectAll("path").attr("opacity", 0.1);
+                d3.select(PathName).attr("opacity", 1).style("stroke-width", 3);
             })
             .on('mouseleave', function (actual, i) {
-                d3.select(this).attr('opacity', 1)
+                d3.select("#barChart").selectAll("rect").attr('opacity', 1);
+                d3.select("#lineGraph").selectAll("path").attr("opacity", 1).style("stroke-width", 1);
             })
 
     }
@@ -406,50 +424,94 @@
 
     function updateData() {
 
-        //--- import data ----------------------//
-        allFiltData = [];
-
-        //--- get data ----------
-        d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+            //--- reset data ----
+            allFiltData = [];
 
             //--- set up time selected ----
             var day = document.getElementById("dateSelection").value;
             var hour = document.getElementById("hourSelection").value;
-            var minute = document.getElementById("minuteSelection").value;
+            var min = document.getElementById("minuteSelection").value;
 
-            var selectedTimeStamp = "4/" + day + "/20 " + hour + ":" + minute;
-            console.log("selectionTimeStamp: " + selectedTimeStamp);
+            var selectedTimeStamp = "2020-04-"+day+" "+hour+":"+min+":00";
 
-            //-- sort data by sensor id ----
-            for (var i = 0; i < sensorIDs.length; i++) {
+            //--- get type of data ----
+            var dataType = document.getElementById("sensorSelection").value;
 
-                //-- filter for time and sensorid
-                var filteredData = data.filter(function (d) {
-                    if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == selectedTimeStamp) {
-                        return d;
-                    }
-                })
-                //-- get average
-                var valueAvg = d3.mean(filteredData, function (d) {
-                    return d.Value;
-                });
+           if(dataType == "static") {
 
-                if(valueAvg == undefined){
-                    valueAvg = 0;
-                }
+               d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+                   //-- sort data by sensor id ----
+                   for (var i = 0; i < sensorIDs.length; i++) {
 
-                //-- add to allFiltData
-                var temp = {
-                    "Sensorid": sensorIDs[i],
-                    "Value": valueAvg
-                }
+                       //-- filter for time and sensorid
+                       var filteredData = data.filter(function (d) {
+                           if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == selectedTimeStamp) {
+                               return d;
+                           }
+                       })
 
-                allFiltData.push(temp);
+                       console.log("filtered data: " + filteredData);
 
-            }
-            console.log("finished data");
-            updateGraph();
-        });
+                       //-- get average
+                       var valueAvg = d3.mean(filteredData, function (d) {
+                           return d.Value;
+                       });
+
+                       if (valueAvg == undefined) {
+                           valueAvg = 0;
+                       }
+
+                       //-- add to allFiltData
+                       var temp = {
+                           "Sensorid": sensorIDs[i],
+                           "Value": valueAvg
+                       }
+
+                       allFiltData.push(temp);
+
+                   }
+                   console.log("finished data");
+                   updateGraph();
+               });
+           } else {
+
+               d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+
+                   //-- filter for time
+                   var filteredData = data.filter(function (d) {
+                       if (d["Timestamp"] == selectedTimeStamp) {
+                           return d;
+                       }
+                   })
+
+                   //-- sort data by sensor id ----
+                   for (var i = 0; i < 50; i++) {
+
+                       console.log("filtered data: " + filteredData);
+
+                       //-- get average
+                       var valueAvg = d3.mean(filteredData, function (d) {
+                           return d.Value;
+                       });
+
+                       if (valueAvg == undefined) {
+                           valueAvg = 0;
+                       }
+
+                       //-- add to allFiltData
+                       var temp = {
+                           "Sensorid": sensorIDs[i],
+                           "Value": valueAvg
+                       }
+
+                       allFiltData.push(temp);
+
+                   }
+                   console.log("finished data");
+                   updateGraph();
+               });
+
+           }
     }
 
     function updateGraph() {
@@ -474,7 +536,6 @@
             .enter()
             .append('rect')
             .attr('class', 'bar')
-            .attr("fill", "red")
             .attr('width', xScale.bandwidth())
             .attr('height', 0)
             .attr('y', height)
@@ -497,10 +558,15 @@
 
         bars
             .on('mouseenter', function (actual, i) {
-                d3.select(this).attr('opacity', 0.5)
+                var PathName = "#path"+actual.Sensorid;
+                console.log("--called pathName: "+PathName);
+                d3.select(this).attr('opacity', 0.5);
+                d3.select("#lineGraph").selectAll("path").attr("opacity", 0.1);
+                d3.select(PathName).attr("opacity", 1).style("stroke-width", 3);
             })
             .on('mouseleave', function (actual, i) {
-                d3.select(this).attr('opacity', 1)
+                d3.select(this).attr('opacity', 1);
+                d3.select("#lineGraph").selectAll("path").attr("opacity", 1).style("stroke-width", 1);
             })
 
         var xaxis = d3.axisBottom(xScale);
@@ -523,102 +589,130 @@
 
 <!---------Static Line Chart------------->
 <script>
+    function loadLineChart() {
+        const svgL = d3.select("#lineGraph");
 
-    const svgLine = d3.select("#lineGraph");
+        //--- set ranges ---
+        var x = d3.scaleTime().range([0, width]);
+        var y = d3.scaleLinear().range([height, 0]);
 
-    //--- set ranges ---
-    var x = d3.scaleTime().range([0, width]);
-    var y = d3.scaleLinear().range([height, 0]);
+        //--- build graph ---
+        var svgLine = svgL.append("g")
+            .attr('transform', `translate(${margin}, ${margin})`);
 
-    //--- build graph ---
-    svgLine.append("g")
-        .attr("transform",
-            "translate(" + margin + "," + margin + ")");
+        //--- define the line for sensor i ----
+        var valueLine = d3.line()
+            .x(function (d) {
+                return x(d.time);
+            })
+            .y(function (d) {
+                return y(d.value);
+            });
 
-    //--- set base data -----
-    //** sensorIDs order : [1,4,6,9,11,12,13,14,15] **
-    const sensorColors = ["Red","Orange","Gold","Green","LimeGreen","Blue", "DarkBlue", "Purple", "DeepPink"];
 
-    var parseTime = d3.timeParse("%m-%-d-%y %H:%M");
+        //--- set base data -----
+        //** sensorIDs order : [1,4,6,9,11,12,13,14,15] **
 
-    //--- import data ----------------------//
-    allFiltData = [];
 
-    //--- get data ----------
-    d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", function (data) {
+        var parseTime = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
 
-        //-- sort data by sensor id ----
-        for (var i = 0; i < sensorIDs.length; i++) {
-            var currentSensorData =[];
-            for(var day=6; day<=10; day++) {
-                for(var hour=0; hour<=23; hour++){
-                    for(var min=0; min<=59; min++) {
+        d3.csv("../data/StaticSensorReadingsREDOWNLOAD.csv", async function (data) {
+
+            //-- reduce data ---
+            var data = await data.filter(function (d) {
+                if (d["Timestamp"].includes(":00:00")) {
+                    return d;
+                }
+            });
+
+            //-- sort data by sensor id ----
+            for (var i = 0; i < sensorIDs.length; i++) {
+                var currentSensorData = [];
+                for (var day = 6; day <= 10; day++) {
+
+                    if (day < 10) {
+                        day = "0" + day;
+                    }
+
+                    for (var hour = 0; hour <= 23; hour++) {
+
+                        if (hour < 10) {
+                            hour = "0" + hour;
+                        }
+
+                        //for(var min=0; min<=59; min++) {
+
+                        /*if(min<10){
+                            min="0"+min;
+                        }*/
 
                         //-- filter for time and sensorid
-
-                        var loopTime = "4/"+day+"/20 "+hour+":"+min;
+                        var loopTime = "2020-04-" + day + " " + hour + ":00:00";
 
                         var filteredData = data.filter(function (d) {
-                            if ( d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == loopTime) {
+                            if (d["Sensorid"] == sensorIDs[i] && d["Timestamp"] == loopTime) {
                                 return d;
                             }
-                        })
-                        //-- get average
-                        var valueAvg = d3.mean(filteredData, function (d) {
-                            return d.Value;
                         });
 
-                        if (valueAvg == undefined) {
-                            valueAvg = 0;
+
+                        if (filteredData.length != 0) {
+                            if (filteredData[0].Value == undefined) {
+                                filteredData[0].Value = 0;
+                            }
+                            //-- add to allFiltData
+                            var temp = {
+                                "time": parseTime(loopTime),
+                                "value": filteredData[0].Value
+                            }
+                            //console.log("---time for " + sensorIDs[i] + ": " + loopTime);
+                            //console.log("parseTime: " + temp.time);
+
+                            currentSensorData.push(temp);
                         }
 
-                        //-- add to allFiltData
-                        var temp = {
-                            "time": parseTime(loopTime),
-                            "value": valueAvg
-                        }
-                        console.log("---time for "+sensorIDs[i]+": "+loopTime)
-                        console.log("parseTime: "+parseTime(loopTime))
-
-                        currentSensorData.push(temp);
-
+                        //}
                     }
                 }
+
+                //--- add path ----
+                var pathName = "path"+sensorIDs[i];
+                console.log("--Created pathName: "+pathName);
+                svgLine.append("path")
+                    .data([currentSensorData])
+                    .attr("class", "line")
+                    .attr("d", valueLine)
+                    .style("stroke", sensorColors[i])
+                    .style("stroke-width", 1)
+                    .style("fill", "none")
+                    .attr("id", pathName);
+
+
+                console.log("finished data for: " + sensorIDs[i]);
+
             }
-
-            //--- define the line for sensor i ----
-            var valueLine = d3.line()
-                .x(function(d) { return x(d.time); })
-                .y(function(d) { return y(d.value); });
-
-            //--- add path ----
-            svgLine.append("path")
-                .data([data])
-                .attr("class", "line")
-                .attr("d", valueLine)
-                .style("stroke", sensorColors[i])
-                .attr("id","path"+sensorIDs[i]);
+        });
 
 
-            console.log("finished data for: "+sensorIDs[i]);
+        //--- Scale the range of the data ----
+        x.domain([parseTime("2020-04-06 00:00:00"), parseTime("2020-04-10 23:00:00")]);
+        y.domain([0, 60]);
 
-        }
+        // Add the Y Axis
+        svgLine.append("g")
+            .call(d3.axisLeft(y));
 
-    });
-
-    //--- Scale the range of the data ----
-    x.domain([parseTime("4/6/20 00:00", "4/10/20 23:59")]);
-    y.domain([0, 25]);
-
-    // Add the X Axis
-    svgLine.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-
-    // Add the Y Axis
-    svgLine.append("g")
-        .call(d3.axisLeft(y));
-
+        // Add the X Axis
+        svgLine.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("y", 0)
+            .attr("x", 9)
+            .attr("dy", ".35em")
+            .attr("transform", "rotate(90)")
+            .style("text-anchor", "start");
+    }
 
 
 </script>
